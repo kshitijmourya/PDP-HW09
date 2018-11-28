@@ -154,7 +154,7 @@ public class UserView {
         String amount = input(sc);
         display("Enter the Date");
         String date = input(sc);
-        display("Enter the weights [separated by spaces]");
+        display("Enter the weights [separated by commas ]");
         String weights = input(sc);
         controllerObj.buyMultiple(commission, amount, portfolio, date, weights);
         break;
