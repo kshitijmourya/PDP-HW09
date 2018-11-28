@@ -98,7 +98,7 @@ public interface UserAccount {
    * @param portfolio portfolio which contains the stock the user wants to view.
    * @return String paragraph of specified portfolio information.
    */
-  String viewPortfolio(String portfolio, int index);
+  String viewPortfolio(String portfolio);
 
   /**
    * Displays the logs of a specified stock in a portfolio.

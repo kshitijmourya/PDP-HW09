@@ -6,9 +6,9 @@ import org.junit.Test;
 import java.io.Reader;
 import java.io.StringReader;
 
-import controller.AppController;
-import controller.IAppController;
-import model.Account;
+import Controller.AppController;
+import Controller.IAppController;
+import Model.Account;
 
 
 public class AppControllerTest {

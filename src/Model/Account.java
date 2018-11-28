@@ -241,7 +241,7 @@ public class Account implements UserAccount {
       int index = 0;
       for (String k : keys) {
         index++;
-        account_information += viewPortfolio(k, index);
+        account_information += viewPortfolio(k);
       }
 
       return account_information;
@@ -256,8 +256,8 @@ public class Account implements UserAccount {
    * @return String paragraph of specified portfolio information.
    */
   @Override
-  public String viewPortfolio(String portfolio, int index) {
-    String portfolio_information = "Portfolio " + index + " :" + portfolio + "\n";
+  public String viewPortfolio(String portfolio) {
+    String portfolio_information = "Portfolio: " + portfolio + "\n";
     for (Stock s : this.portfolios.get(portfolio)) {
       portfolio_information += s.toString();
     }

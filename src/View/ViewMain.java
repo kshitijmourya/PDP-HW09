@@ -1,8 +1,8 @@
-package view;
+package View;
 
 import java.io.InputStreamReader;
 
-import controller.AppController;
+import Controller.AppController;
 
 public class ViewMain {
 
