@@ -25,16 +25,23 @@ public class AccountTest {
     testTrade.buyStock("apple", "2018-11-13", "open", 20, "Technology");
     Thread.sleep(25000);
     testTrade.buyStock("microsoft", "2018-11-08", "open", 10, "Technology");
+    Thread.sleep(25000);
 
-    testTrade.addPortfolio("Technology2");
-    System.out.println(testTrade.viewPortfolio("Technology"));
     String early_ports = testTrade.viewAccount();
     testTrade.addPortfolio("Retail");
+
+    System.out.println(testTrade.viewAccount() + "\n\n");
+    System.out.println(testTrade.viewPortfolio("Technology") + "\n\n");
+    System.out.println(testTrade.viewStockLogsInPortfolio("Technology") + "\n\n");
+    System.out.println(testTrade.getAccountProfit("2018-11-2", "2018-11-27") + "\n\n");
+
     String all_ports = testTrade.viewAccount();
     testTrade.removePortfolio("Retail");
 
     assertNotEquals(early_ports, all_ports);
     assertEquals(early_ports, testTrade.viewAccount());
+
+    testTrade.buyMultipleStockInPortfolio(2000.00, "Technology", "2018-10-06", 20, 10, 20, 50);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -47,7 +54,6 @@ public class AccountTest {
   public void testAddRemove2() {
     testTrade = new Account();
     testTrade.addPortfolio("");
-
   }
 
   @Test(expected = IllegalArgumentException.class)
