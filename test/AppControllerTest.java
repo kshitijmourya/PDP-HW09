@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.io.Reader;
 import java.io.StringReader;
 
-import Controller.AppController;
 import Controller.IAppController;
 import Model.Account;
 

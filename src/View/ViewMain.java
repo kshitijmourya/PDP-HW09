@@ -2,8 +2,6 @@ package View;
 
 import java.io.InputStreamReader;
 
-import Controller.AppController;
-
 public class ViewMain {
 
   /**

@@ -19,13 +19,13 @@ public class AccountTest {
     testTrade = new Account();
     testTrade.addPortfolio("Technology");
 
-    testTrade.buyStock("AMZN", "2018-11-08", "open", 10, "Technology");
+    testTrade.buyStock(20.00,"AMZN", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);
-    testTrade.buyStock("amd", "2018-11-08", "open", 10, "Technology");
+    testTrade.buyStock(20.00,"amd", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);
-    testTrade.buyStock("apple", "2018-11-13", "open", 20, "Technology");
+    testTrade.buyStock(20.00,"apple", "2018-11-13", "open", 20, "Technology");
     Thread.sleep(25000);
-    testTrade.buyStock("microsoft", "2018-11-08", "open", 10, "Technology");
+    testTrade.buyStock(20.00,"microsoft", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);
 
     String early_ports = testTrade.viewAccount();
@@ -42,14 +42,14 @@ public class AccountTest {
     assertNotEquals(early_ports, all_ports);
     assertEquals(early_ports, testTrade.viewAccount());
 
-    testTrade.buyMultipleStockInPortfolio(2000.00, "Technology", "2018-10-05", 20, 10, 20, 50);
-
+    testTrade.buyMultipleStockInPortfolio(20.00,2000.00, "Technology", "2018-10-05", 20, 10, 20, 50);
+    testTrade.periodicInvestment(20, 2000.00,  "Technology", "2017-10-05","2018-11-27" ,20, 10, 20, 50);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testAddRemove1() {
     testTrade = new Account();
-    testTrade.buyStock("", "2018-11-08", "open", 10, "Technology");
+    testTrade.buyStock(20.00,"", "2018-11-08", "open", 10, "Technology");
   }
 
   @Test(expected = IllegalArgumentException.class)

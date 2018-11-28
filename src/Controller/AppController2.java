@@ -3,7 +3,6 @@ package Controller;
 import java.util.Arrays;
 
 import Model.Account;
-import View.UserView;
 
 public class AppController2 implements IAppController {
 
