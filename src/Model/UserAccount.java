@@ -76,6 +76,7 @@ public interface UserAccount {
    * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
    * portfolio, then it will add the shares to the stock within the portfolio.
    *
+   * @param commission  commision value.
    * @param investment amount in Dollars and Cents towards the portfolio.
    * @param portfolio portfolio which contains the stock the user wants to sell.
    * @param start date of periodic investment.
@@ -137,11 +138,11 @@ public interface UserAccount {
    */
   String getPortfolioProfit(String portfolio, String start, String end) throws InterruptedException;
 
-  int getStockNumberInPortfolio(String portfolio);
   /**
+   * Obtains the number of stocks within a given portfolio.
    *
    * @param portfolio portfolio which contains the stock the user wants to view.
-   * @return String profit of a stock in a specified portfolio.
+   * @return number of stocks in a portfolio.
    */
-  //String getSingleStockProfit(String ticker, String portfolio, String start, String end);
+  int getStockNumberInPortfolio(String portfolio);
 }

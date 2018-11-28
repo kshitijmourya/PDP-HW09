@@ -19,6 +19,7 @@ class APIData {
   private Map<String, Map<String, Map<String, Double>>> prices;
   private String apiKey2 = "SSO4MPHRUSM6YMEB";
   private String apiKey = "UISBJFEXNUUOZ3II";
+  private String apiKey3 = "3KC45X2HPAQ6X05J";
   private URL url = null;
 
 
@@ -99,7 +100,7 @@ class APIData {
     InputStream in = null;
     StringBuilder output = new StringBuilder();
 
-    Thread.sleep(20000);
+    Thread.sleep(40000);
     try {
       in = url.openStream();
       int b;
