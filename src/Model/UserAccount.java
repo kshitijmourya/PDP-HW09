@@ -135,6 +135,7 @@ public interface UserAccount {
    */
   String getPortfolioProfit(String portfolio, String start, String end) throws InterruptedException;
 
+  int getStockNumberInPortfolio(String portfolio);
   /**
    *
    * @param portfolio portfolio which contains the stock the user wants to view.

@@ -21,6 +21,7 @@ public class AccountTest {
 
     testTrade.buyStock(20.00,"AMZN", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);
+
     testTrade.buyStock(20.00,"amd", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);
     testTrade.buyStock(20.00,"apple", "2018-11-13", "open", 20, "Technology");

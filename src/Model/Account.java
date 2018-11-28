@@ -364,4 +364,9 @@ public class Account implements UserAccount {
     portfolio_information += "Total Portfolio Earnings: " + total_value + "\n\n";
     return portfolio_information;
   }
+
+  @Override
+  public int getStockNumberInPortfolio(String portfolio) {
+    return this.portfolios.get(portfolio).size();
+  }
 }

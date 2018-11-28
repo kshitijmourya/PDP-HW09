@@ -25,7 +25,7 @@ public class AppControllerTest {
   public void test1() {
     StringBuffer out = new StringBuffer();
     Reader in = new StringReader("2018-11-13");
-    IAppController controller = new AppController(in, out);
+    IAppController controller = new AppController2(in, out);
     controller.runApp();
   }
 
