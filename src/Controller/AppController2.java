@@ -56,8 +56,10 @@ public class AppController2 implements IAppController {
 
   }
 
-  public void examineStock(String stockName) {
-
+ public String printPF(){
+   return model.viewAccount();
   }
+
+
 
 }
