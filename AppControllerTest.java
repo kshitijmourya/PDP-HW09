@@ -21,20 +21,5 @@ public class AppControllerTest {
   }
 
 
-  @Test(expected = IllegalStateException.class)
-  public void test1() {
-    StringBuffer out = new StringBuffer();
-    Reader in = new StringReader("2018-11-13");
-    IAppController controller = new AppController2(in, out);
-    controller.runApp();
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void test2() {
-    StringBuffer out = new StringBuffer();
-    Reader in = new StringReader("-1");
-    IAppController controller = new AppController(in, out);
-    controller.runApp();
-  }
 
 }

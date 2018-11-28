@@ -3,6 +3,7 @@ package Controller;
 import java.util.Arrays;
 
 import Model.Account;
+import View.UserView;
 
 public class AppController2 implements IAppController {
 
@@ -43,7 +44,7 @@ public class AppController2 implements IAppController {
   public void buy(double commission, String stockName, int shares, String portfolio) {
     try {
       //model.addPortfolio(portfolio);
-      model.buyStock(commission,stockName, "2018-11-27", "open", shares, portfolio);
+      model.buyStock(commission, stockName, "2018-11-27", "open", shares, portfolio);
       view.display("Bought Stock successfully\n");
     } catch (IllegalArgumentException e) {
       view.display(e.getMessage());
@@ -58,7 +59,7 @@ public class AppController2 implements IAppController {
     int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
 
     try {
-      model.buyMultipleStockInPortfolio(commission,investment, portfolioName, "2018-11-27", weightArray);
+      model.buyMultipleStockInPortfolio(commission, investment, portfolioName, "2018-11-27", weightArray);
       view.display("Bought Stock Succesfuuly\n");
     } catch (InterruptedException e) {
       e.printStackTrace();
@@ -70,7 +71,7 @@ public class AppController2 implements IAppController {
     int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
 
     try {
-      model.periodicInvestment(commission,investment, portfolioName, sDate, edate, intervals, weightArray);
+      model.periodicInvestment(commission, investment, portfolioName, sDate, edate, intervals, weightArray);
       view.display("Investment Strategy succesfully created");
     } catch (InterruptedException e) {
       e.printStackTrace();
