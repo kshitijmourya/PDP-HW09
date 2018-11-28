@@ -39,7 +39,7 @@ public interface UserAccount {
    * @param shares    number of shares the user wants to buy.
    * @param portfolio to add the acquired stock to.
    */
-  void buyStock(String ticker, String date, String type, int shares, String portfolio);
+  void buyStock(double commision, String ticker, String date, String type, int shares, String portfolio);
 
   /**
    * A future feature for the next version update. This method is incomplete and not ready for use
@@ -66,7 +66,7 @@ public interface UserAccount {
    * @param date the user wants to buy the stock in YYYY-MM-dd format.
    * @param weights of investment into each stock in the portfolio.
    */
-  void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) throws InterruptedException;
+  void buyMultipleStockInPortfolio(double commision, double investment, String portfolio, String date, int... weights) throws InterruptedException;
 
   /**
    * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
@@ -81,7 +81,7 @@ public interface UserAccount {
    * @param interval interval of periodic investment.
    * @param weights of investment into each stock in the portfolio.
    */
-  void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException;
+  void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException;
 
   /**
    * Displays the total current information within the users account. Portfolio names, the stocks

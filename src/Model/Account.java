@@ -81,10 +81,10 @@ public class Account implements UserAccount {
    * @param portfolio to add the acquired stock to.
    */
   @Override
-  public void buyStock(String ticker, String date, String type, int shares, String portfolio) {
+  public void buyStock(double commision, String ticker, String date, String type, int shares, String portfolio) {
     boolean exists = false;
 
-    Stock stock_bought = new Stock(ticker, date, type, shares);
+    Stock stock_bought = new Stock(commision, ticker, date, type, shares);
     Stock stock_owned;
 
     for (Stock s : this.portfolios.get(portfolio)) {
@@ -104,8 +104,8 @@ public class Account implements UserAccount {
     }
   }
 
-  void buyMonetaryStock(String ticker, String date, String type, double investment, String portfolio) {
-    Stock stock_bought = new Stock(ticker, date, type, investment);
+  void buyMonetaryStock(double commision, String ticker, String date, String type, double investment, String portfolio) {
+    Stock stock_bought = new Stock(commision, ticker, date, type, investment);
     Stock stock_owned;
 
     for (Stock s : this.portfolios.get(portfolio)) {
@@ -169,7 +169,7 @@ public class Account implements UserAccount {
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) throws InterruptedException {
+  public void buyMultipleStockInPortfolio(double commision, double investment, String portfolio, String date, int... weights) throws InterruptedException {
     List weights_list = new ArrayList<Integer>();
     double weights_total = 0;
 
@@ -185,7 +185,7 @@ public class Account implements UserAccount {
       System.out.println("1");
       double proportion = weight_iterator.next().doubleValue()/weights_total;
       Thread.sleep(30000);
-      buyMonetaryStock(stock_iterator.next().getTicker(), date, "open", investment*proportion, portfolio);
+      buyMonetaryStock(commision, stock_iterator.next().getTicker(), date, "open", investment*proportion, portfolio);
     }
   }
 
@@ -203,7 +203,7 @@ public class Account implements UserAccount {
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException {
+  public void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     try {
@@ -219,7 +219,7 @@ public class Account implements UserAccount {
       for (int i = 0; i < number_of_investments; i++) {
         base_line_date.add(Calendar.DATE, interval);
         Date date = base_line_date.getTime();
-        buyMultipleStockInPortfolio(investment, portfolio, formatter.format(date), weights);
+        buyMultipleStockInPortfolio(commision, investment, portfolio, formatter.format(date), weights);
       }
     } catch (ParseException e) {
       e.printStackTrace();

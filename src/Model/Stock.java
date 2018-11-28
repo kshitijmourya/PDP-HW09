@@ -26,8 +26,7 @@ class Stock {
    * @param type        of price the shares will be bought at (i.e. open, close, high, low)
    * @param shares      to be boughtfor the company.
    */
-  Stock(int commision, String companyName, String date, String type, int shares) {
-    this.shares = shares;
+  Stock(double commision, String companyName, String date, String type, int shares) {
 
     APIData stock_data = new APIData();
     String code = stock_data.searchCode(companyName);
@@ -42,23 +41,27 @@ class Stock {
     List cost_shares = new ArrayList();
 
     if (!this.log.containsKey(date)) {
-      cost_shares.add(0, date);
-      cost_shares.add(1, String.valueOf(commision + price * shares));
-      cost_shares.add(2, String.valueOf(shares));
-      cost_shares.add(3, String.valueOf(commision));
-      cost_shares.add(4, String.valueOf(price));
+      cost_shares.add(0, String.valueOf(commision + price * shares));
+      cost_shares.add(1, String.valueOf(shares));
+      cost_shares.add(2, String.valueOf(commision));
+      cost_shares.add(3, String.valueOf(price));
       this.log.put(date, cost_shares);
+      this.shares = shares;
+
     } else {
       double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
-      cost_shares.add(0,  String.valueOf(cost));
-      cost_shares.add(1, shares + shares);
+      cost_shares.add(0, String.valueOf(commision + cost));
+      cost_shares.add(1, String.valueOf(Integer.parseInt(this.log.get(date).get(1)) + shares));
+      cost_shares.add(2, String.valueOf(Double.parseDouble(this.log.get(date).get(2)) + commision));
+      cost_shares.add(3, String.valueOf(price));
+      this.shares += shares;
       this.log.put(date,cost_shares);
     }
 
     this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
   }
 
-  Stock(String companyName, String date, String type, double investment) {
+  Stock(double commision, String companyName, String date, String type, double investment) {
 
     APIData stock_data = new APIData();
     String code = stock_data.searchCode(companyName);
@@ -69,20 +72,25 @@ class Stock {
       e.printStackTrace();
     }
 
-    System.out.println(price);
-    System.out.println(investment);
     this.shares = Math.toIntExact(Math.round(investment / price));
     this.ticker = code;
     List cost_shares = new ArrayList();
 
     if (!this.log.containsKey(date)) {
-      cost_shares.add(0, String.valueOf(price * shares));
+      cost_shares.add(0, String.valueOf(commision + price * shares));
       cost_shares.add(1, String.valueOf(shares));
+      cost_shares.add(2, String.valueOf(commision));
+      cost_shares.add(3, String.valueOf(price));
       this.log.put(date, cost_shares);
+      this.shares = shares;
+
     } else {
       double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
-      cost_shares.add(0,  String.valueOf(cost));
-      cost_shares.add(1, shares + shares);
+      cost_shares.add(0, String.valueOf(commision + cost));
+      cost_shares.add(1, String.valueOf(Integer.parseInt(this.log.get(date).get(1)) + shares));
+      cost_shares.add(2, String.valueOf(Double.parseDouble(this.log.get(date).get(2)) + commision));
+      cost_shares.add(3, String.valueOf(price));
+      this.shares += shares;
       this.log.put(date,cost_shares);
     }
 
