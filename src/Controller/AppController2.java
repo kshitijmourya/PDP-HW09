@@ -1,25 +1,33 @@
-package Controller;
+package controller;
 
 import java.text.ParseException;
-import java.util.Arrays;
 
-import Model.Account;
-import View.UserView;
+
+import model.Account;
+import view.UserView;
 
 public class AppController2 implements IAppController {
 
   private Account model;
   private UserView view;
 
-
+  /**
+   * constructor for controller.
+   *
+   * @param model model object.
+   * @param view  view object.
+   */
   public AppController2(Account model, UserView view) {
 
     this.model = model;
     this.view = view;
   }
 
+  /**
+   * empty constructor.
+   */
   public AppController2() {
-
+    //empty constructor
   }
 
 
@@ -69,7 +77,7 @@ public class AppController2 implements IAppController {
   }
 
   /**
-   * Calls model to buy multiple stocks in a portfolio
+   * Calls model to buy multiple stocks in a portfolio.
    *
    * @param commission    commision value.
    * @param amount        investment amount.
@@ -109,7 +117,8 @@ public class AppController2 implements IAppController {
     //int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
 
     try {
-      model.periodicInvestment(commission, investment, portfolioName, sDate, edate, intervals, weightArray);
+      model.periodicInvestment(commission, investment, portfolioName, sDate, edate,
+              intervals, weightArray);
       view.display("Investment Strategy succesfully created");
     } catch (InterruptedException e) {
       e.printStackTrace();

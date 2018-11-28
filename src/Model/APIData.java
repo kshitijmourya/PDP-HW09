@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,7 +84,8 @@ class APIData {
    * @throws IllegalArgumentException if the url query does not work or if the ticker symbol did not
    *                                  return any data
    */
-  Double getPrices(String tickrCode, String date, String type) throws IllegalArgumentException, InterruptedException {
+  Double getPrices(String tickrCode, String date, String type)
+          throws IllegalArgumentException, InterruptedException {
 
     try {
       url = new URL("https://www.alphavantage"
@@ -138,7 +139,8 @@ class APIData {
     return result;
   }
 
-  Double helperPrice(Map<String, Map<String, Double>> resu, String date, String type) throws ParseException {
+  Double helperPrice(Map<String, Map<String, Double>> resu, String date, String type)
+          throws ParseException {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date today = new Date();
     Double out = 0.00;

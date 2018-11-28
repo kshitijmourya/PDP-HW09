@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.text.ParseException;
 
@@ -41,7 +41,8 @@ public interface UserAccount {
    * @param shares    number of shares the user wants to buy.
    * @param portfolio to add the acquired stock to.
    */
-  void buyStock(double commision, String ticker, String date, String type, int shares, String portfolio);
+  void buyStock(double commision, String ticker, String date, String type,
+                int shares, String portfolio);
 
   /**
    * A future feature for the next version update. This method is incomplete and not ready for use
@@ -59,32 +60,35 @@ public interface UserAccount {
 
   /**
    * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
-   * have to add up to 100, but they will be proportioned accordingly. If the
-   * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
-   * portfolio, then it will add the shares to the stock within the portfolio.
+   * have to add up to 100, but they will be proportioned accordingly. If the stock does not already
+   * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
+   * add the shares to the stock within the portfolio.
    *
    * @param investment amount in Dollars and Cents towards the portfolio.
-   * @param portfolio portfolio which contains the stock the user wants to sell.
-   * @param date the user wants to buy the stock in YYYY-MM-dd format.
-   * @param weights of investment into each stock in the portfolio.
+   * @param portfolio  portfolio which contains the stock the user wants to sell.
+   * @param date       the user wants to buy the stock in YYYY-MM-dd format.
+   * @param weights    of investment into each stock in the portfolio.
    */
-  void buyMultipleStockInPortfolio(double commision, double investment, String portfolio, String date, int... weights) throws InterruptedException;
+  void buyMultipleStockInPortfolio(double commision, double investment, String portfolio,
+                                   String date, int... weights) throws InterruptedException;
 
   /**
    * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
-   * have to add up to 100, but they will be proportioned accordingly. If the
-   * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
-   * portfolio, then it will add the shares to the stock within the portfolio.
+   * have to add up to 100, but they will be proportioned accordingly. If the stock does not already
+   * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
+   * add the shares to the stock within the portfolio.
    *
-   * @param commission  commision value.
+   * @param commision  commision value.
    * @param investment amount in Dollars and Cents towards the portfolio.
-   * @param portfolio portfolio which contains the stock the user wants to sell.
-   * @param start date of periodic investment.
-   * @param end date of periodic investment.
-   * @param interval interval of periodic investment.
-   * @param weights of investment into each stock in the portfolio.
+   * @param portfolio  portfolio which contains the stock the user wants to sell.
+   * @param start      date of periodic investment.
+   * @param end        date of periodic investment.
+   * @param interval   interval of periodic investment.
+   * @param weights    of investment into each stock in the portfolio.
    */
-  void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException, ParseException;
+  void periodicInvestment(double commision, double investment, String portfolio,
+                          String start, String end, int interval, int... weights)
+          throws InterruptedException, ParseException;
 
   /**
    * Displays the total current information within the users account. Portfolio names, the stocks
@@ -119,12 +123,11 @@ public interface UserAccount {
   String viewStockLogsInPortfolio(String portfolio);
 
   /**
-   * Displays the total current profit of the account. Portfolio name, the stocks
-   * within the portfolio, and profit for each stock.
+   * Displays the total current profit of the account. Portfolio name, the stocks within the
+   * portfolio, and profit for each stock.
    *
    * @param start date of profit calculations.
-   * @param end date of profit calculations.
-   * @return
+   * @param end   date of profit calculations.
    */
   String getAccountProfit(String start, String end) throws InterruptedException;
 
@@ -132,8 +135,8 @@ public interface UserAccount {
    * Displays the total current profit of a specified portfolio.
    *
    * @param portfolio portfolio which contains the stock the user wants to view.
-   * @param start date of profit calculations.
-   * @param end date of profit calculations.
+   * @param start     date of profit calculations.
+   * @param end       date of profit calculations.
    * @return String paragraph of profit from specified portfolio.
    */
   String getPortfolioProfit(String portfolio, String start, String end) throws InterruptedException;

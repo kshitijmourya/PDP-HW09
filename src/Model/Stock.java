@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,14 +51,16 @@ class Stock {
     } else {
       double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
       cost_shares.add(0, String.valueOf(commision + cost));
-      cost_shares.add(1, String.valueOf(Integer.parseInt(this.log.get(date).get(1)) + shares));
-      cost_shares.add(2, String.valueOf(Double.parseDouble(this.log.get(date).get(2)) + commision));
+      cost_shares.add(1, String.valueOf(Integer.parseInt(this.log.get(date).get(1)) +
+              shares));
+      cost_shares.add(2, String.valueOf(Double.parseDouble(this.log.get(date).get(2)) +
+              commision));
       cost_shares.add(3, String.valueOf(price));
       this.shares += shares;
-      this.log.put(date,cost_shares);
+      this.log.put(date, cost_shares);
     }
 
-    this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
+    this.cost = this.log.values().stream().mapToDouble(a -> Double.parseDouble(a.get(0))).sum();
   }
 
   Stock(double commision, String companyName, String date, String type, double investment) {
@@ -87,14 +89,16 @@ class Stock {
     } else {
       double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
       cost_shares.add(0, String.valueOf(commision + cost));
-      cost_shares.add(1, String.valueOf(Integer.parseInt(this.log.get(date).get(1)) + shares));
-      cost_shares.add(2, String.valueOf(Double.parseDouble(this.log.get(date).get(2)) + commision));
+      cost_shares.add(1, String.valueOf(Integer.parseInt(this.log.get(date).get(1)) +
+              shares));
+      cost_shares.add(2, String.valueOf(Double.parseDouble(this.log.get(date).get(2)) +
+              commision));
       cost_shares.add(3, String.valueOf(price));
       this.shares += shares;
-      this.log.put(date,cost_shares);
+      this.log.put(date, cost_shares);
     }
 
-    this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
+    this.cost = this.log.values().stream().mapToDouble(a -> Double.parseDouble(a.get(0))).sum();
   }
 
   /**

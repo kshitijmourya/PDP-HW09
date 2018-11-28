@@ -1,11 +1,11 @@
-package View;
+package view;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import Controller.AppController2;
-import Model.Account;
+import controller.AppController2;
+import model.Account;
 
 public class UserView implements IUserView {
   private Account model = new Account();

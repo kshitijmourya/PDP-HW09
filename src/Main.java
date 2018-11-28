@@ -1,5 +1,5 @@
-import Model.Account;
-import View.UserView;
+import model.Account;
+import view.UserView;
 
 public class Main {
   /**

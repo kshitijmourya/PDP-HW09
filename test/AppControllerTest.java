@@ -3,14 +3,12 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import Controller.AppController2;
-import Controller.IAppController;
-import Model.Account;
-import Model.UserAccount;
-import View.IUserView;
-import View.UserView;
-
-import static org.junit.Assert.assertEquals;
+import controller.AppController2;
+import controller.IAppController;
+import model.Account;
+import model.UserAccount;
+import view.IUserView;
+import view.UserView;
 
 
 public class AppControllerTest {

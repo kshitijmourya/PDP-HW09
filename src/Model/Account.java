@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,9 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -85,7 +83,8 @@ public class Account implements UserAccount {
    * @param portfolio to add the acquired stock to.
    */
   @Override
-  public void buyStock(double commision, String ticker, String date, String type, int shares, String portfolio) {
+  public void buyStock(double commision, String ticker, String date, String type,
+                       int shares, String portfolio) {
     boolean exists = false;
 
     Stock stock_bought = new Stock(commision, ticker, date, type, shares);
@@ -113,16 +112,17 @@ public class Account implements UserAccount {
    * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
    * portfolio, then it will add the shares to the stock within the portfolio.
    *
-   * @param commision amount charges in Dollard and Cents to make the transaction.
-   * @param ticker    identifier for company to buy stock from. Can be company name or ticker
-   *                  symbol.
-   * @param date      the user wants to buy the stock in YYYY-MM-dd format.
-   * @param type      of buy price the user wants to obtain shares at (i.e. open, close, low,
-   *                  high).
-   * @param investment    number of shares the user wants to buy.
-   * @param portfolio to add the acquired stock to.
+   * @param commision  amount charges in Dollard and Cents to make the transaction.
+   * @param ticker     identifier for company to buy stock from. Can be company name or ticker
+   *                   symbol.
+   * @param date       the user wants to buy the stock in YYYY-MM-dd format.
+   * @param type       of buy price the user wants to obtain shares at (i.e. open, close, low,
+   *                   high).
+   * @param investment number of shares the user wants to buy.
+   * @param portfolio  to add the acquired stock to.
    */
-  void buyMonetaryStock(double commision, String ticker, String date, String type, double investment, String portfolio) {
+  void buyMonetaryStock(double commision, String ticker, String date, String type,
+                        double investment, String portfolio) {
     Stock stock_bought = new Stock(commision, ticker, date, type, investment);
     Stock stock_owned;
 
@@ -140,11 +140,9 @@ public class Account implements UserAccount {
 
   /**
    * A future feature for the next version update. This method is incomplete and not ready for use
-   * by the user.
-   * <p></p>
-   * Sells a particular stock from a specified portfolio at the users command. The stock MUST exist
-   * in the portfolio to be able to sell it. The user can only sell, at maximum, the total number of
-   * shares owned.
+   * by the user. Sells a particular stock from a specified portfolio at the users command. The
+   * stock MUST exist in the portfolio to be able to sell it. The user can only sell, at maximum,
+   * the total number of shares owned.
    *
    * @param ticker    code for the company to sell the stock.
    * @param shares    number of shares to sell.
@@ -181,14 +179,16 @@ public class Account implements UserAccount {
    * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
    * add the shares to the stock within the portfolio.
    *
-   * @param commision amount charges in Dollard and Cents to make the transaction.
+   * @param commision  amount charges in Dollard and Cents to make the transaction.
    * @param investment amount in Dollars and Cents towards the portfolio.
    * @param portfolio  portfolio which contains the stock the user wants to sell.
    * @param date       the user wants to buy the stock in YYYY-MM-dd format.
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void buyMultipleStockInPortfolio(double commision, double investment, String portfolio, String date, int... weights) throws InterruptedException {
+  public void buyMultipleStockInPortfolio(double commision, double investment,
+                                          String portfolio, String date, int... weights)
+          throws InterruptedException {
     List weights_list = new ArrayList<Integer>();
     double weights_total = 0;
 
@@ -201,9 +201,10 @@ public class Account implements UserAccount {
     ListIterator<Integer> weight_iterator = weights_list.listIterator(0);
 
     while (stock_iterator.hasNext() && weight_iterator.hasNext()) {
-      double proportion = weight_iterator.next().doubleValue()/weights_total;
+      double proportion = weight_iterator.next().doubleValue() / weights_total;
       Thread.sleep(10000);
-      buyMonetaryStock(commision, stock_iterator.next().getTicker(), date, "open", investment*proportion, portfolio);
+      buyMonetaryStock(commision, stock_iterator.next().getTicker(), date, "open",
+              investment * proportion, portfolio);
     }
   }
 
@@ -213,7 +214,7 @@ public class Account implements UserAccount {
    * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
    * add the shares to the stock within the portfolio.
    *
-   * @param commision amount charges in Dollard and Cents to make the transaction.
+   * @param commision  amount charges in Dollard and Cents to make the transaction.
    * @param investment amount in Dollars and Cents towards the portfolio.
    * @param portfolio  portfolio which contains the stock the user wants to sell.
    * @param start      date of periodic investment.
@@ -222,7 +223,9 @@ public class Account implements UserAccount {
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException, ParseException {
+  public void periodicInvestment(double commision, double investment, String portfolio,
+                                 String start, String end, int interval, int... weights)
+          throws InterruptedException, ParseException {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
@@ -234,7 +237,8 @@ public class Account implements UserAccount {
 
     for (int i = 0; i < number_of_investments; i++) {
       LocalDate date = start_date.plusDays(interval);
-      buyMultipleStockInPortfolio(commision, investment, portfolio, date.format(formatter), weights);
+      buyMultipleStockInPortfolio(commision, investment, portfolio, date.format(formatter),
+              weights);
     }
   }
 
@@ -305,7 +309,7 @@ public class Account implements UserAccount {
   public String viewStockLogsInPortfolio(String portfolio) {
     LinkedList<Stock> stocks = this.portfolios.get(portfolio);
 
-    return stocks.stream().map(a->a.logString()).collect(Collectors.joining());
+    return stocks.stream().map(a -> a.logString()).collect(Collectors.joining());
   }
 
   /**
@@ -341,7 +345,8 @@ public class Account implements UserAccount {
    * @return String paragraph of profit from specified portfolio.
    */
   @Override
-  public String getPortfolioProfit(String portfolio, String start, String end) throws InterruptedException {
+  public String getPortfolioProfit(String portfolio, String start, String end)
+          throws InterruptedException {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date today = new Date();
 

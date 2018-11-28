@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 public interface IAppController {
 
@@ -22,10 +22,10 @@ public interface IAppController {
    * @param shares     number of shares.
    * @param portfolio  name of the portfolio.
    */
-  public void buy(double commission, String stockName, int shares, String portfolio,String date);
+  public void buy(double commission, String stockName, int shares, String portfolio, String date);
 
   /**
-   * Calls model to buy multiple stocks in a portfolio
+   * Calls model to buy multiple stocks in a portfolio.
    *
    * @param commission    commision value.
    * @param amount        investment amount.

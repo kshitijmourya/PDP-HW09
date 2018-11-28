@@ -1,9 +1,9 @@
-import org.junit.Before;
+
 import org.junit.Test;
 
 import java.text.ParseException;
 
-import Model.Account;
+import model.Account;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,29 +18,31 @@ public class AccountTest {
     testTrade = new Account();
     testTrade.addPortfolio("Technology");
 
-    testTrade.buyStock(20.00,"AMZN", "2018-11-08", "open", 10, "Technology");
-    Thread.sleep(25000);
+    testTrade.buyStock(20.00, "AMZN", "2018-11-08", "open", 10, "Technology");
+    //Thread.sleep(25000);
     assertEquals("Portfolio: Technology\n"
             + "\tTicker Symbol: AMZN\n"
             + "\tTotal Shares Owned: 10\n"
             + "\tTotal Running Cost of Stock: 17570.0\n\n", testTrade.viewPortfolio("Technology"));
 
-    testTrade.buyStock(20.00,"amd", "2018-11-08", "open", 10, "Technology");
-    Thread.sleep(25000);
-    testTrade.buyStock(20.00,"apple", "2018-11-13", "open", 20, "Technology");
-    Thread.sleep(25000);
-    testTrade.buyStock(20.00,"microsoft", "2018-11-08", "open", 10, "Technology");
-    Thread.sleep(25000);
+    testTrade.buyStock(20.00, "amd", "2018-11-08", "open", 10, "Technology");
+    //Thread.sleep(25000);
+    testTrade.buyStock(20.00, "apple", "2018-11-13", "open", 20, "Technology");
+    //Thread.sleep(25000);
+    testTrade.buyStock(20.00, "microsoft", "2018-11-08", "open", 10, "Technology");
+    //Thread.sleep(25000);
 
     String early_ports = testTrade.viewAccount();
     testTrade.addPortfolio("Retail");
 
     assertEquals("Portfolio: Technology\n" + "\n" + "\tAMZN\n"
-            + "\t\tCurrent Profit: -1810.1000000000004\n" + "\n" + "\tAMD\n"
-            + "\t\tCurrent Profit: -40.0\n" + "\n" + "\tAAPL\n"
-            + "\t\tCurrent Profit: -422.4000000000001\n" + "\n" + "\tMSFT\n"
-            + "\t\tCurrent Profit: -75.29999999999995\n" + "Total Portfolio Earnings: -2347\n\n",
-            testTrade.getPortfolioProfit("Technology","2018-11-2", "2018-11-27"));
+                    + "\t\tCurrent Profit: -1810.1000000000004\n" + "\n" + "\tAMD\n"
+                    + "\t\tCurrent Profit: -40.0\n" + "\n" + "\tAAPL\n"
+                    + "\t\tCurrent Profit: -422.4000000000001\n" + "\n" + "\tMSFT\n"
+                    + "\t\tCurrent Profit: -75.29999999999995\n" +
+                    "Total Portfolio Earnings: -2347\n\n",
+            testTrade.getPortfolioProfit("Technology", "2018-11-02",
+                    "2018-11-27"));
 
     String all_ports = testTrade.viewAccount();
     testTrade.removePortfolio("Retail");
@@ -48,7 +50,8 @@ public class AccountTest {
     assertNotEquals(early_ports, all_ports);
     assertEquals(early_ports, testTrade.viewAccount());
 
-    testTrade.buyMultipleStockInPortfolio(20.00,2000.00, "Technology", "2018-10-05", 20, 10, 20, 50);
+    testTrade.buyMultipleStockInPortfolio(20.00, 2000.00,
+            "Technology", "2018-10-05", 20, 10, 20, 50);
 
     assertEquals("Portfolio: Technology\n" + "\tTicker Symbol: AMZN\n"
             + "\tTotal Shares Owned: 10\n" + "\tTotal Running Cost of Stock: 17590.0\n" + "\n"
@@ -58,7 +61,8 @@ public class AccountTest {
             + "\n" + "\tTicker Symbol: MSFT\n" + "\tTotal Shares Owned: 19\n"
             + "\tTotal Running Cost of Stock: 2171.67\n\n", testTrade.viewPortfolio("Technology"));
 
-    testTrade.periodicInvestment(20, 2000.00,  "Technology", "2017-10-05","2018-11-27" ,20, 10, 20, 50);
+    testTrade.periodicInvestment(20, 2000.00, "Technology",
+            "2017-10-05", "2018-11-27", 20, 10, 20, 50);
     System.out.println(testTrade.viewPortfolio("Technology"));
     System.out.println("*******************************");
 
@@ -67,7 +71,7 @@ public class AccountTest {
   @Test(expected = IllegalArgumentException.class)
   public void testAddRemove1() {
     testTrade = new Account();
-    testTrade.buyStock(20.00,"", "2018-11-08", "open", 10, "Technology");
+    testTrade.buyStock(20.00, "", "2018-11-08", "open", 10, "Technology");
   }
 
   @Test(expected = IllegalArgumentException.class)
