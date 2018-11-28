@@ -11,7 +11,11 @@ public class UserView implements IUserView {
   private Account model = new Account();
   private AppController2 controllerObj = new AppController2(model, this);
 
+  /**
+   * empty constructor.
+   */
   public UserView() {
+    //empty constructor.
   }
 
   public void display(String st) {
@@ -96,21 +100,29 @@ public class UserView implements IUserView {
         String stockName = input(sc);
         System.out.println("Enter number of shares");
         String s1 = input(sc);
-        int shares = Integer.parseInt(s1);
+        display("Enter the Date");
+        String date = input(sc);
+        int shares = 0;
+        try {
+          shares = Integer.parseInt(s1);
+        } catch (NumberFormatException e) {
+          System.out.println("Please Enter Number");
+
+        }
         System.out.println("Enter Portfolio's name");
         String portfolioName = input(sc);
-        controllerObj.buy(commission, stockName, shares, portfolioName);
+        controllerObj.buy(commission, stockName, shares, portfolioName, date);
         break;
 
       case "2":
         display("Displaying all portfolios to choose from:");
         display(controllerObj.printPF());
-        display("Enter Portfolio name");
+        display("Enter Portfolio name exactly as displayed above");
         String portfolio = input(sc);
         display("Enter Amount to invest");
         String amount = input(sc);
         display("Enter the Date");
-        String date = input(sc);
+        String date1 = input(sc);
 
 
         display("Enter the weights [separated by commas] || " +
@@ -147,12 +159,16 @@ public class UserView implements IUserView {
           display("Please Enter Correct Weights");
         }
         //System.out.print("Controller called");
-        controllerObj.buyMultiple(commission, amount, portfolio, date, weightArray);
+        controllerObj.buyMultiple(commission, amount, portfolio, date1, weightArray);
         break;
 
       //Need to add method to enter more periodic investments
       case "3":
         periodicInvestment();
+        break;
+
+      default:
+        display("Enter correct values");
         break;
     }
 
@@ -163,61 +179,60 @@ public class UserView implements IUserView {
     display("Enter 1 for Dollar Cost Averaging");
     Scanner sc = new Scanner(System.in);
     String command = input(sc);
-    switch (command) {
-      default:
-        display("Displaying all portfolios to choose from:");
-        display(controllerObj.printPF());
-        display("Enter Portfolio name");
-        String portfolio = input(sc);
+    if (command.equals("1")) {
+      display("Displaying all portfolios to choose from:");
+      display(controllerObj.printPF());
+      display("Enter Portfolio name");
+      String portfolio = input(sc);
 
-        display("Enter Commission");
-        String com = input(sc);
-        double commission = Double.parseDouble(com);
+      display("Enter Commission");
+      String com = input(sc);
+      double commission = Double.parseDouble(com);
 
-        display("Enter Investment Amount");
-        String amount = input(sc);
-        double investment = Double.parseDouble(amount);
+      display("Enter Investment Amount");
+      String amount = input(sc);
+      double investment = Double.parseDouble(amount);
 
-        display("Enter Start Date");
-        String sDate = input(sc);
-        display("Enter End Date (Optional)");
-        String eDate = input(sc);
-        display("Enter interval in days");
-        String interval = input(sc);
-        int intervals = Integer.parseInt(interval);
+      display("Enter Start Date");
+      String sDate = input(sc);
+      display("Enter End Date (Optional)");
+      String eDate = input(sc);
+      display("Enter interval in days");
+      String interval = input(sc);
+      int intervals = Integer.parseInt(interval);
 
-        //finding the integer of number of stocks in that portfolio
-        int i = controllerObj.getStockNumber(portfolio);
-        int defaultWeight = 0;
-        if (i < 0) {
-          defaultWeight = 100 / i;
-        }
+      //finding the integer of number of stocks in that portfolio
+      int i = controllerObj.getStockNumber(portfolio);
+      int defaultWeight = 0;
+      if (i < 0) {
+        defaultWeight = 100 / i;
+      }
 
 
-        int[] defaultArray = new int[i];
-        for (int k = 0; k < defaultArray.length; i++) {
-          defaultArray[k] = defaultWeight;
-        }
+      int[] defaultArray = new int[i];
+      for (int k = 0; k < defaultArray.length; i++) {
+        defaultArray[k] = defaultWeight;
+      }
 
-        display("Enter the weights [separated by commas] ||" +
-                " Write DEFAULT to use default weights");
+      display("Enter the weights [separated by commas] ||" +
+              " Write DEFAULT to use default weights");
 
-        String weights = input(sc);
+      String weights = input(sc);
 
-        int[] weightArray;
-        if (weights.equals("DEFAULT")) {
-          weightArray = defaultArray;
-        } else {
-          weightArray = Arrays.stream(weights.split(","))
-                  .mapToInt(Integer::parseInt).toArray();
-        }
+      int[] weightArray;
+      if (weights.equals("DEFAULT")) {
+        weightArray = defaultArray;
+      } else {
+        weightArray = Arrays.stream(weights.split(","))
+                .mapToInt(Integer::parseInt).toArray();
+      }
 
-        if (weightArray.length != i) {
-          display("Please Enter Correct Weights");
-        }
+      if (weightArray.length != i) {
+        display("Please Enter Correct Weights");
+      }
 
-        controllerObj.periodicInvestment(commission, investment, portfolio,
-                sDate, eDate, intervals, weightArray);
+      controllerObj.periodicInvestment(commission, investment, portfolio,
+              sDate, eDate, intervals, weightArray);
 
     }
   }
