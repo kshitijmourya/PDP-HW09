@@ -4,12 +4,13 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import Controller.AppController2;
+import Model.Account;
 
 public class UserView {
-  private AppController2 controllerObj = new AppController2();
+  private Account model = new Account();
+  private AppController2 controllerObj = new AppController2(model, this);
 
   public UserView() {
-
   }
 
   public void display(String st) {

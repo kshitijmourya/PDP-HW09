@@ -9,8 +9,9 @@ public class Main {
     Account model= new Account();
     UserView view = new UserView();
 
-    AppController2 controller = new AppController2(model,view);
+    //AppController2 controller = new AppController2(model);
 
+    //controller.runApp();
     view.run();
   }
 }

@@ -45,6 +45,7 @@ class Stock {
       cost_shares.add(0,  String.valueOf(cost));
       cost_shares.add(1, shares + shares);
       this.log.put(date,cost_shares);
+      System.out.println(this);
     }
 
     this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
