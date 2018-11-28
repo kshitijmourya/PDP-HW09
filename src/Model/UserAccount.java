@@ -1,5 +1,7 @@
 package Model;
 
+import java.text.ParseException;
+
 /**
  * This interface represents an account for transing and selling stock.
  */
@@ -81,7 +83,7 @@ public interface UserAccount {
    * @param interval interval of periodic investment.
    * @param weights of investment into each stock in the portfolio.
    */
-  void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException;
+  void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException, ParseException;
 
   /**
    * Displays the total current information within the users account. Portfolio names, the stocks
