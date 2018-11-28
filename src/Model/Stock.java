@@ -15,7 +15,7 @@ class Stock {
   private String ticker;
   private int shares;
   private double cost;
-  private List log = new ArrayList();
+  private Map<String, List<String>> log = new HashMap<>();
 
   /**
    * Constructor for a single stock object. It will hold the total dealings with a particular
@@ -45,15 +45,14 @@ class Stock {
       cost_shares.add(0, date);
       cost_shares.add(1, String.valueOf(commision + price * shares));
       cost_shares.add(2, String.valueOf(shares));
-      cost_shares.add(3, commision);
-      cost_shares.add(4, price);
-      this.log.add(cost_shares);
+      cost_shares.add(3, String.valueOf(commision));
+      cost_shares.add(4, String.valueOf(price));
+      this.log.put(date, cost_shares);
     } else {
       double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
-      cost_shares.add(0, date);
       cost_shares.add(0,  String.valueOf(cost));
       cost_shares.add(1, shares + shares);
-      this.log.add(cost_shares);
+      this.log.put(date,cost_shares);
     }
 
     this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
