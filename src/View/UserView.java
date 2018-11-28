@@ -18,10 +18,22 @@ public class UserView implements IUserView {
     //empty constructor.
   }
 
+  /**
+   * method used to display all texts.
+   *
+   * @param st string.
+   */
   public void display(String st) {
     System.out.println(st);
   }
 
+  /**
+   * method used to input the scanner input.
+   *
+   * @param scan scanner object.
+   * @return string.
+   * @throws IllegalStateException e
+   */
   private String input(Scanner scan) throws IllegalStateException {
     String string = "";
     try {
@@ -79,6 +91,9 @@ public class UserView implements IUserView {
     }
   }
 
+  /**
+   * provided submenu for buyStock.
+   */
   private void buyStockOptions() {
 
     Scanner sc = new Scanner(System.in);
@@ -174,6 +189,9 @@ public class UserView implements IUserView {
 
   }
 
+  /**
+   * provide submenu for periodic investment.
+   */
   private void periodicInvestment() {
     display("Select your periodic Investment Strategy:\n");
     display("Enter 1 for Dollar Cost Averaging");
