@@ -69,6 +69,8 @@ class Stock {
       e.printStackTrace();
     }
 
+    System.out.println(price);
+    System.out.println(investment);
     this.shares = Math.toIntExact(Math.round(investment / price));
     this.ticker = code;
     List cost_shares = new ArrayList();

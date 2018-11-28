@@ -145,19 +145,27 @@ class APIData {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date today = new Date();
     Double out = 0.00;
+    System.out.println(out + "HERE 1");
 
     if (formatter.parse(date).compareTo(today) == 0) {
+      System.out.println(out + "HERE 2");
+
       return out;
-    }
-    if (!resu.containsKey(date)) {
+
+    } else if (resu.containsKey(date)) {
+      System.out.println(out + "HERE 4");
+
+      return resu.get(date).get(type);
+    } else {
       Calendar next_date = Calendar.getInstance();
       next_date.setTime(formatter.parse(date));
       next_date.add(Calendar.DATE, 1);
       Date new_date = next_date.getTime();
-      helperPrice(resu, formatter.format(new_date), type);
-    } else {
-      out = resu.get(date).get(type);
+      System.out.println(out + "HERE 3");
+
+      out = helperPrice(resu, formatter.format(new_date), type);
     }
+    System.out.println(out + "HERE 5");
     return out;
   }
 }
