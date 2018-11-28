@@ -2,6 +2,9 @@ package Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -181,10 +184,9 @@ public class Account implements UserAccount {
     ListIterator<Stock> stock_iterator = this.portfolios.get(portfolio).listIterator(0);
     ListIterator<Integer> weight_iterator = weights_list.listIterator(0);
 
-    while (stock_iterator.hasNext()) {
-      System.out.println("1");
+    while (stock_iterator.hasNext() && weight_iterator.hasNext()) {
       double proportion = weight_iterator.next().doubleValue()/weights_total;
-      Thread.sleep(30000);
+      Thread.sleep(10000);
       buyMonetaryStock(commision, stock_iterator.next().getTicker(), date, "open", investment*proportion, portfolio);
     }
   }
@@ -203,26 +205,19 @@ public class Account implements UserAccount {
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException {
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+  public void periodicInvestment(double commision, double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException, ParseException {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    try {
-      Date start_date = formatter.parse(start);
-      Date end_date = formatter.parse(end);
 
-      long days = start_date.getTime() - end_date.getTime();
-      int number_of_investments = Math.toIntExact(days / interval);
+    LocalDate start_date = LocalDate.parse(start);
+    LocalDate end_date = LocalDate.parse(end);
 
-      Calendar base_line_date = Calendar.getInstance();
-      base_line_date.setTime(start_date);
+    long days = ChronoUnit.DAYS.between(start_date, end_date);
+    int number_of_investments = Math.toIntExact(days / interval);
 
-      for (int i = 0; i < number_of_investments; i++) {
-        base_line_date.add(Calendar.DATE, interval);
-        Date date = base_line_date.getTime();
-        buyMultipleStockInPortfolio(commision, investment, portfolio, formatter.format(date), weights);
-      }
-    } catch (ParseException e) {
-      e.printStackTrace();
+    for (int i = 0; i < number_of_investments; i++) {
+      LocalDate date = start_date.plusDays(interval);
+      buyMultipleStockInPortfolio(commision, investment, portfolio, date.format(formatter), weights);
     }
   }
 
@@ -342,7 +337,7 @@ public class Account implements UserAccount {
       APIData stock_data = new APIData();
       String code = stock_data.searchCode(s.getTicker());
       double end_price = stock_data.getPrices(code, end, "open");
-      Thread.sleep(20000);
+      Thread.sleep(10000);
 
       for (String date : s.getLogs().keySet()) {
         portfolio_information += "\n\t" + s.getTicker() + "\n";
