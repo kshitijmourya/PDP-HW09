@@ -18,7 +18,6 @@ public class AccountTest {
   public void setUp() throws InterruptedException {
     testTrade = new Account();
     testTrade.addPortfolio("Technology");
-    testTrade.buyStock("apple", "2018-11-25", "open", 20, "Technology");
 
     testTrade.buyStock("AMZN", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);

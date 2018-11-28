@@ -128,10 +128,6 @@ class APIData {
     Map<String, Map<String, Double>> resu = this.prices.get(tickrCode);
     Double result = 0.00;
     try {
-      //System.out.println(res);
-      //result=0.0;
-      //System.out.println(date);
-      System.out.println(resu.toString());
       result = helperPrice(resu, date, type);
 
     } catch (Exception e) {
@@ -145,15 +141,12 @@ class APIData {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date today = new Date();
     Double out = 0.00;
-    System.out.println(out + "HERE 1");
 
     if (formatter.parse(date).compareTo(today) == 0) {
-      System.out.println(out + "HERE 2");
 
       return out;
 
     } else if (resu.containsKey(date)) {
-      System.out.println(out + "HERE 4");
 
       return resu.get(date).get(type);
     } else {
@@ -161,11 +154,9 @@ class APIData {
       next_date.setTime(formatter.parse(date));
       next_date.add(Calendar.DATE, 1);
       Date new_date = next_date.getTime();
-      System.out.println(out + "HERE 3");
 
       out = helperPrice(resu, formatter.format(new_date), type);
     }
-    System.out.println(out + "HERE 5");
     return out;
   }
 }
