@@ -75,6 +75,7 @@ public class Account implements UserAccount {
    * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
    * portfolio, then it will add the shares to the stock within the portfolio.
    *
+   * @param commision amount charges in Dollard and Cents to make the transaction.
    * @param ticker    identifier for company to buy stock from. Can be company name or ticker
    *                  symbol.
    * @param date      the user wants to buy the stock in YYYY-MM-dd format.
@@ -107,6 +108,20 @@ public class Account implements UserAccount {
     }
   }
 
+  /**
+   * Buys a particular stock and adds it to the specified portfolio at the users command. If the
+   * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
+   * portfolio, then it will add the shares to the stock within the portfolio.
+   *
+   * @param commision amount charges in Dollard and Cents to make the transaction.
+   * @param ticker    identifier for company to buy stock from. Can be company name or ticker
+   *                  symbol.
+   * @param date      the user wants to buy the stock in YYYY-MM-dd format.
+   * @param type      of buy price the user wants to obtain shares at (i.e. open, close, low,
+   *                  high).
+   * @param investment    number of shares the user wants to buy.
+   * @param portfolio to add the acquired stock to.
+   */
   void buyMonetaryStock(double commision, String ticker, String date, String type, double investment, String portfolio) {
     Stock stock_bought = new Stock(commision, ticker, date, type, investment);
     Stock stock_owned;
@@ -166,6 +181,7 @@ public class Account implements UserAccount {
    * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
    * add the shares to the stock within the portfolio.
    *
+   * @param commision amount charges in Dollard and Cents to make the transaction.
    * @param investment amount in Dollars and Cents towards the portfolio.
    * @param portfolio  portfolio which contains the stock the user wants to sell.
    * @param date       the user wants to buy the stock in YYYY-MM-dd format.
@@ -197,6 +213,7 @@ public class Account implements UserAccount {
    * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
    * add the shares to the stock within the portfolio.
    *
+   * @param commision amount charges in Dollard and Cents to make the transaction.
    * @param investment amount in Dollars and Cents towards the portfolio.
    * @param portfolio  portfolio which contains the stock the user wants to sell.
    * @param start      date of periodic investment.
@@ -360,6 +377,12 @@ public class Account implements UserAccount {
     return portfolio_information;
   }
 
+  /**
+   * Obtains the number of stocks within a given portfolio.
+   *
+   * @param portfolio portfolio which contains the stock the user wants to view.
+   * @return number of stocks in a portfolio.
+   */
   @Override
   public int getStockNumberInPortfolio(String portfolio) {
     return this.portfolios.get(portfolio).size();
