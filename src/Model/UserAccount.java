@@ -66,7 +66,7 @@ public interface UserAccount {
    * @param date the user wants to buy the stock in YYYY-MM-dd format.
    * @param weights of investment into each stock in the portfolio.
    */
-  void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights);
+  void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) throws InterruptedException;
 
   /**
    * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
@@ -81,7 +81,7 @@ public interface UserAccount {
    * @param interval interval of periodic investment.
    * @param weights of investment into each stock in the portfolio.
    */
-  void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights);
+  void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException;
 
   /**
    * Displays the total current information within the users account. Portfolio names, the stocks
@@ -90,6 +90,13 @@ public interface UserAccount {
    * @return String paragraph of user account information.
    */
   String viewAccount();
+
+  /**
+   * Displays the total current Portfolio names.
+   *
+   * @return String paragraph of user account information.
+   */
+  String checkPortfolioNames();
 
   /**
    * Displays the total current information within a specified portfolio. Portfolio name, the stocks
@@ -116,7 +123,7 @@ public interface UserAccount {
    * @param end date of profit calculations.
    * @return
    */
-  String getAccountProfit(String start, String end);
+  String getAccountProfit(String start, String end) throws InterruptedException;
 
   /**
    * Displays the total current profit of a specified portfolio.
@@ -126,7 +133,7 @@ public interface UserAccount {
    * @param end date of profit calculations.
    * @return String paragraph of profit from specified portfolio.
    */
-  String getPortfolioProfit(String portfolio, String start, String end);
+  String getPortfolioProfit(String portfolio, String start, String end) throws InterruptedException;
 
   /**
    *

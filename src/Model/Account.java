@@ -169,7 +169,7 @@ public class Account implements UserAccount {
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) {
+  public void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) throws InterruptedException {
     List weights_list = new ArrayList<Integer>();
     double weights_total = 0;
 
@@ -182,7 +182,9 @@ public class Account implements UserAccount {
     ListIterator<Integer> weight_iterator = weights_list.listIterator(0);
 
     while (stock_iterator.hasNext()) {
+      System.out.println("1");
       double proportion = weight_iterator.next().doubleValue()/weights_total;
+      Thread.sleep(30000);
       buyMonetaryStock(stock_iterator.next().getTicker(), date, "open", investment*proportion, portfolio);
     }
   }
@@ -201,7 +203,7 @@ public class Account implements UserAccount {
    * @param weights    of investment into each stock in the portfolio.
    */
   @Override
-  public void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) {
+  public void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) throws InterruptedException {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     try {
@@ -249,6 +251,22 @@ public class Account implements UserAccount {
   }
 
   /**
+   * Displays the total current Portfolio names.
+   *
+   * @return String paragraph of user account information.
+   */
+  @Override
+  public String checkPortfolioNames() {
+    String portfolio_names = "Portfolio Names: \n";
+
+    for (String p : this.portfolios.keySet()) {
+      portfolio_names += p + "\n";
+    }
+
+    return portfolio_names;
+  }
+
+  /**
    * Displays the total current information within a specified portfolio. Portfolio name, the stocks
    * within the portfolio, shares owned of each stock, and total running cost of each stock.
    *
@@ -286,7 +304,7 @@ public class Account implements UserAccount {
    * @param end   date of profit calculations.
    */
   @Override
-  public String getAccountProfit(String start, String end) {
+  public String getAccountProfit(String start, String end) throws InterruptedException {
     if (this.portfolios.isEmpty()) {
       return "User has no active portfolios.";
     } else {
@@ -311,7 +329,7 @@ public class Account implements UserAccount {
    * @return String paragraph of profit from specified portfolio.
    */
   @Override
-  public String getPortfolioProfit(String portfolio, String start, String end) {
+  public String getPortfolioProfit(String portfolio, String start, String end) throws InterruptedException {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Date today = new Date();
 
@@ -324,9 +342,10 @@ public class Account implements UserAccount {
       APIData stock_data = new APIData();
       String code = stock_data.searchCode(s.getTicker());
       double end_price = stock_data.getPrices(code, end, "open");
+      Thread.sleep(20000);
 
       for (String date : s.getLogs().keySet()) {
-        portfolio_information += "\t" + s.getTicker() + "\n";
+        portfolio_information += "\n\t" + s.getTicker() + "\n";
         try {
           if (formatter.parse(date).after(formatter.parse(start))
                   && formatter.parse(date).before(formatter.parse(end))) {
@@ -335,14 +354,14 @@ public class Account implements UserAccount {
                     - Double.parseDouble(s.getLogs().get(date).get(0));
 
             total_value += value_difference;
-            portfolio_information += "\t\t" + "Current Profit: " + value_difference + "\n\n";
+            portfolio_information += "\t\t" + "Current Profit: " + value_difference + "\n";
           }
         } catch (ParseException e) {
           e.printStackTrace();
         }
       }
     }
-    portfolio_information += "Total Portfolio Earnings: " + total_value;
+    portfolio_information += "Total Portfolio Earnings: " + total_value + "\n\n";
     return portfolio_information;
   }
 }
