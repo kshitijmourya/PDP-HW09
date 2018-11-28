@@ -127,9 +127,9 @@ class Stock {
   @Override
   public String toString() {
     String stock_information =
-            "Ticker Symbol: " + this.ticker
-                    + "\n" + "Total Shares Owned: " + this.shares
-                    + "\n" + "Total Running Cost of Stock: " + this.cost + "\n";
+            "\t" + "Ticker Symbol: " + this.ticker
+                    + "\n" + "\t" + "Total Shares Owned: " + this.shares
+                    + "\n" + "\t" + "Total Running Cost of Stock: " + this.cost + "\n\n";
 
     return stock_information;
   }
