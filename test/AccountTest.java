@@ -18,6 +18,8 @@ public class AccountTest {
   public void setUp() throws InterruptedException {
     testTrade = new Account();
     testTrade.addPortfolio("Technology");
+    testTrade.buyStock("apple", "2018-11-13", "open", 20, "Technology");
+
     testTrade.buyStock("AMZN", "2018-11-08", "open", 10, "Technology");
     Thread.sleep(25000);
     testTrade.buyStock("amd", "2018-11-08", "open", 10, "Technology");
@@ -41,7 +43,8 @@ public class AccountTest {
     assertNotEquals(early_ports, all_ports);
     assertEquals(early_ports, testTrade.viewAccount());
 
-    testTrade.buyMultipleStockInPortfolio(2000.00, "Technology", "2018-10-06", 20, 10, 20, 50);
+    testTrade.buyMultipleStockInPortfolio(2000.00, "Technology", "2018-10-05", 20, 10, 20, 50);
+
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,7 +83,8 @@ class APIData {
    * @throws IllegalArgumentException if the url query does not work or if the ticker symbol did not
    *                                  return any data
    */
-  Double getPrices(String tickrCode, String date, String type) throws IllegalArgumentException {
+  Double getPrices(String tickrCode, String date, String type) throws IllegalArgumentException, InterruptedException {
+
     try {
       url = new URL("https://www.alphavantage"
               + ".co/query?function=TIME_SERIES_DAILY"
@@ -94,6 +99,7 @@ class APIData {
     InputStream in = null;
     StringBuilder output = new StringBuilder();
 
+    Thread.sleep(20000);
     try {
       in = url.openStream();
       int b;
@@ -120,16 +126,38 @@ class APIData {
 
 
     Map<String, Map<String, Double>> resu = this.prices.get(tickrCode);
-    Double result = 0.0;
+    Double result = 0.00;
     try {
       //System.out.println(res);
       //result=0.0;
       //System.out.println(date);
-      result = resu.get(date).get(type);
+      System.out.println(resu.toString());
+      result = helperPrice(resu, date, type);
+
     } catch (Exception e) {
       e.printStackTrace();
       throw new IllegalArgumentException("No Info");
     }
     return result;
+  }
+
+  Double helperPrice(Map<String, Map<String, Double>> resu, String date, String type) throws ParseException {
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    Date today = new Date();
+    Double out = 0.00;
+
+    if (formatter.parse(date).compareTo(today) == 0) {
+      return out;
+    }
+    if (!resu.containsKey(date)) {
+      Calendar next_date = Calendar.getInstance();
+      next_date.setTime(formatter.parse(date));
+      next_date.add(Calendar.DATE, 1);
+      Date new_date = next_date.getTime();
+      helperPrice(resu, formatter.format(new_date), type);
+    } else {
+      out = resu.get(date).get(type);
+    }
+    return out;
   }
 }

@@ -15,7 +15,7 @@ class Stock {
   private String ticker;
   private int shares;
   private double cost;
-  private Map<String, List<String>> log = new HashMap<>();
+  private List log = new ArrayList();
 
   /**
    * Constructor for a single stock object. It will hold the total dealings with a particular
@@ -26,25 +26,34 @@ class Stock {
    * @param type        of price the shares will be bought at (i.e. open, close, high, low)
    * @param shares      to be boughtfor the company.
    */
-  Stock(String companyName, String date, String type, int shares) {
+  Stock(int commision, String companyName, String date, String type, int shares) {
     this.shares = shares;
 
     APIData stock_data = new APIData();
     String code = stock_data.searchCode(companyName);
-    double price = stock_data.getPrices(code, date, type);
+    double price = 0;
+    try {
+      price = stock_data.getPrices(code, date, type);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     this.ticker = code;
     List cost_shares = new ArrayList();
 
     if (!this.log.containsKey(date)) {
-      cost_shares.add(0, String.valueOf(price * shares));
-      cost_shares.add(1, String.valueOf(shares));
-      this.log.put(date, cost_shares);
+      cost_shares.add(0, date);
+      cost_shares.add(1, String.valueOf(commision + price * shares));
+      cost_shares.add(2, String.valueOf(shares));
+      cost_shares.add(3, commision);
+      cost_shares.add(4, price);
+      this.log.add(cost_shares);
     } else {
       double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
+      cost_shares.add(0, date);
       cost_shares.add(0,  String.valueOf(cost));
       cost_shares.add(1, shares + shares);
-      this.log.put(date,cost_shares);
+      this.log.add(cost_shares);
     }
 
     this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
@@ -54,7 +63,12 @@ class Stock {
 
     APIData stock_data = new APIData();
     String code = stock_data.searchCode(companyName);
-    double price = stock_data.getPrices(code, date, type);
+    double price = 0;
+    try {
+      price = stock_data.getPrices(code, date, type);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     this.shares = Math.toIntExact(Math.round(investment / price));
     this.ticker = code;
@@ -137,9 +151,11 @@ class Stock {
   String logString() {
     String log_info = this.ticker + "\n";
     SortedMap sorted_log = new TreeMap(this.log);
+    //this.log.keySet().;
     Iterator log_iterator = sorted_log.entrySet().iterator();
 
     while (log_iterator.hasNext()) {
+      //log_iterator.next()
       log_info += log_iterator.next().toString() + "\n";
     }
     return log_info;
