@@ -1,11 +1,11 @@
-package controller;
+package Controller;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import model.Account;
-import model.UserAccount;
+import Model.Account;
+import Model.UserAccount;
 
 
 /**

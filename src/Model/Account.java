@@ -3,7 +3,9 @@ package Model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -169,7 +171,7 @@ public class Account implements UserAccount {
   @Override
   public void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) {
     List weights_list = new ArrayList<Integer>();
-    int weights_total = 0;
+    double weights_total = 0;
 
     for (int i : weights) {
       weights_total += i;
@@ -180,8 +182,8 @@ public class Account implements UserAccount {
     ListIterator<Integer> weight_iterator = weights_list.listIterator(0);
 
     while (stock_iterator.hasNext()) {
-      weight_iterator.next().;
-      buyMonetaryStock(stock_iterator.next().getTicker(), date, "open", );
+      double proportion = weight_iterator.next().doubleValue()/weights_total;
+      buyMonetaryStock(stock_iterator.next().getTicker(), date, "open", investment*proportion, portfolio);
     }
   }
 
@@ -200,7 +202,26 @@ public class Account implements UserAccount {
    */
   @Override
   public void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) {
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
+    try {
+      Date start_date = formatter.parse(start);
+      Date end_date = formatter.parse(end);
+
+      long days = start_date.getTime() - end_date.getTime();
+      int number_of_investments = Math.toIntExact(days / interval);
+
+      Calendar base_line_date = Calendar.getInstance();
+      base_line_date.setTime(start_date);
+
+      for (int i = 0; i < number_of_investments; i++) {
+        base_line_date.add(Calendar.DATE, interval);
+        Date date = base_line_date.getTime();
+        buyMultipleStockInPortfolio(investment, portfolio, formatter.format(date), weights);
+      }
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
