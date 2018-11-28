@@ -13,7 +13,7 @@ import java.util.Map;
 class APIData {
   private Map<String, String> nameToCode;
   private Map<String, Map<String, Map<String, Double>>> prices;
-  //  private String apiKey = "SSO4MPHRUSM6YMEB";
+  private String apiKey2 = "SSO4MPHRUSM6YMEB";
   private String apiKey = "UISBJFEXNUUOZ3II";
   private URL url = null;
 
@@ -38,7 +38,7 @@ class APIData {
     try {
       url = new URL("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&"
               + "keywords=" + companyName
-              + "&apikey=" + apiKey
+              + "&apikey=" + apiKey2
               + "&datatype=csv");
     } catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "

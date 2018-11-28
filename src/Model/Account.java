@@ -2,9 +2,12 @@ package Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -77,8 +80,6 @@ public class Account implements UserAccount {
    */
   @Override
   public void buyStock(String ticker, String date, String type, int shares, String portfolio) {
-
-
     boolean exists = false;
 
     Stock stock_bought = new Stock(ticker, date, type, shares);
@@ -98,6 +99,22 @@ public class Account implements UserAccount {
 
     if (!exists) {
       this.portfolios.get(portfolio).add(stock_bought);
+    }
+  }
+
+  void buyMonetaryStock(String ticker, String date, String type, double investment, String portfolio) {
+    Stock stock_bought = new Stock(ticker, date, type, investment);
+    Stock stock_owned;
+
+    for (Stock s : this.portfolios.get(portfolio)) {
+      if (s.getTicker().equals(ticker)) {
+        stock_owned = s;
+
+        int new_shares = stock_bought.getShares() + stock_owned.getShares();
+        double running_cost = s.getCost() + stock_bought.getCost();
+        s.setShares(new_shares);
+        s.setCost(running_cost);
+      }
     }
   }
 
@@ -136,6 +153,54 @@ public class Account implements UserAccount {
     if (!exists) {
       System.out.println("This stock does not exist in this portfolio.");
     }
+  }
+
+  /**
+   * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
+   * have to add up to 100, but they will be proportioned accordingly. If the stock does not already
+   * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
+   * add the shares to the stock within the portfolio.
+   *
+   * @param investment amount in Dollars and Cents towards the portfolio.
+   * @param portfolio  portfolio which contains the stock the user wants to sell.
+   * @param date       the user wants to buy the stock in YYYY-MM-dd format.
+   * @param weights    of investment into each stock in the portfolio.
+   */
+  @Override
+  public void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights) {
+    List weights_list = new ArrayList<Integer>();
+    int weights_total = 0;
+
+    for (int i : weights) {
+      weights_total += i;
+      weights_list.add(i);
+    }
+
+    ListIterator<Stock> stock_iterator = this.portfolios.get(portfolio).listIterator(0);
+    ListIterator<Integer> weight_iterator = weights_list.listIterator(0);
+
+    while (stock_iterator.hasNext()) {
+      weight_iterator.next().;
+      buyMonetaryStock(stock_iterator.next().getTicker(), date, "open", );
+    }
+  }
+
+  /**
+   * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
+   * have to add up to 100, but they will be proportioned accordingly. If the stock does not already
+   * exist in the portfolio, it will add it. If the stock does exist in the portfolio, then it will
+   * add the shares to the stock within the portfolio.
+   *
+   * @param investment amount in Dollars and Cents towards the portfolio.
+   * @param portfolio  portfolio which contains the stock the user wants to sell.
+   * @param start      date of periodic investment.
+   * @param end        date of periodic investment.
+   * @param interval   interval of periodic investment.
+   * @param weights    of investment into each stock in the portfolio.
+   */
+  @Override
+  public void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights) {
+
   }
 
   /**

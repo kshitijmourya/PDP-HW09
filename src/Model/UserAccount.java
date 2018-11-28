@@ -55,9 +55,33 @@ public interface UserAccount {
    */
   void sellStock(String ticker, int shares, String portfolio);
 
-  //void buyMultipleStockInPortfolio(double investment, String portfolio, String start, int... weights);
+  /**
+   * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
+   * have to add up to 100, but they will be proportioned accordingly. If the
+   * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
+   * portfolio, then it will add the shares to the stock within the portfolio.
+   *
+   * @param investment amount in Dollars and Cents towards the portfolio.
+   * @param portfolio portfolio which contains the stock the user wants to sell.
+   * @param date the user wants to buy the stock in YYYY-MM-dd format.
+   * @param weights of investment into each stock in the portfolio.
+   */
+  void buyMultipleStockInPortfolio(double investment, String portfolio, String date, int... weights);
 
-  //void periodicInvestment(double investment, String portfolio, String start, int... weights, int interval);
+  /**
+   * Buys stocks of the specified portfolio in the weights that the user defines. Weights do not
+   * have to add up to 100, but they will be proportioned accordingly. If the
+   * stock does not already exist in the portfolio, it will add it. If the stock does exist in the
+   * portfolio, then it will add the shares to the stock within the portfolio.
+   *
+   * @param investment amount in Dollars and Cents towards the portfolio.
+   * @param portfolio portfolio which contains the stock the user wants to sell.
+   * @param start date of periodic investment.
+   * @param end date of periodic investment.
+   * @param interval interval of periodic investment.
+   * @param weights of investment into each stock in the portfolio.
+   */
+  void periodicInvestment(double investment, String portfolio, String start, String end, int interval, int... weights);
 
   /**
    * Displays the total current information within the users account. Portfolio names, the stocks

@@ -16,6 +16,7 @@ class Stock {
   private int shares;
   private double cost;
   private Map<String, List<String>> log = new HashMap<>();
+
   /**
    * Constructor for a single stock object. It will hold the total dealings with a particular
    * company in shares, cost of stocks purchased, and the ticker symbol for the company.
@@ -32,6 +33,30 @@ class Stock {
     String code = stock_data.searchCode(companyName);
     double price = stock_data.getPrices(code, date, type);
 
+    this.ticker = code;
+    List cost_shares = new ArrayList();
+
+    if (!this.log.containsKey(date)) {
+      cost_shares.add(0, String.valueOf(price * shares));
+      cost_shares.add(1, String.valueOf(shares));
+      this.log.put(date, cost_shares);
+    } else {
+      double cost = Double.parseDouble(this.log.get(date).get(0)) + price * shares;
+      cost_shares.add(0,  String.valueOf(cost));
+      cost_shares.add(1, shares + shares);
+      this.log.put(date,cost_shares);
+    }
+
+    this.cost = this.log.values().stream().mapToDouble(a->Double.parseDouble(a.get(0))).sum();
+  }
+
+  Stock(String companyName, String date, String type, double investment) {
+
+    APIData stock_data = new APIData();
+    String code = stock_data.searchCode(companyName);
+    double price = stock_data.getPrices(code, date, type);
+
+    this.shares = Math.toIntExact(Math.round(investment / price));
     this.ticker = code;
     List cost_shares = new ArrayList();
 
