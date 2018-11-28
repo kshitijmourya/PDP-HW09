@@ -1,5 +1,6 @@
 package Controller;
 
+import java.text.ParseException;
 import java.util.Arrays;
 
 import Model.Account;
@@ -111,6 +112,8 @@ public class AppController2 implements IAppController {
       model.periodicInvestment(commission, investment, portfolioName, sDate, edate, intervals, weightArray);
       view.display("Investment Strategy succesfully created");
     } catch (InterruptedException e) {
+      e.printStackTrace();
+    } catch (ParseException e) {
       e.printStackTrace();
     }
 
