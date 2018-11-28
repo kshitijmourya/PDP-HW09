@@ -1,6 +1,4 @@
-import Controller.AppController2;
 import Model.Account;
-import View.UserView;
 
 public class Main {
 
