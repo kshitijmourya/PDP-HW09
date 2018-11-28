@@ -49,10 +49,10 @@ public class UserView {
           break;
 
         case "2":
-          //buyStockOptions();
+          buyStockOptions();
 
           //Scanner sc1 = new Scanner(System.in);
-          display("Please Enter Commission amount");
+          /*display("Please Enter Commission amount");
           String com = input(sc);
           double commission = Double.parseDouble(com);
 
@@ -73,7 +73,7 @@ public class UserView {
               int shares = Integer.parseInt(s1);
               System.out.println("Enter Portfolio's name");
               String portfolioName = input(sc);
-              controllerObj.buy(stockName, shares, portfolioName);
+              controllerObj.buy(commission,stockName, shares, portfolioName);
               break;
 
             case "2":
@@ -94,7 +94,7 @@ public class UserView {
             case "3":
               periodicInvestment();
               break;
-          }
+          }*/
           break;
 
 
@@ -119,9 +119,9 @@ public class UserView {
   }
 
   private void buyStockOptions() {
-/*
-    display("Please Enter Commission amount");
+
     Scanner sc = new Scanner(System.in);
+    display("Please Enter Commission amount");
     String com = input(sc);
     double commission = Double.parseDouble(com);
 
@@ -142,7 +142,7 @@ public class UserView {
         int shares = Integer.parseInt(s1);
         System.out.println("Enter Portfolio's name");
         String portfolioName = input(sc);
-        controllerObj.buy(stockName, shares, portfolioName);
+        controllerObj.buy(commission, stockName, shares, portfolioName);
         break;
 
       case "2":
@@ -164,7 +164,7 @@ public class UserView {
         periodicInvestment();
         break;
     }
-    */
+
   }
 
   private void periodicInvestment() {

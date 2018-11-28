@@ -11,7 +11,6 @@ public class AppController2 implements IAppController {
   private UserView view;
 
 
-
   public AppController2(Account model, UserView view) {
     this.model = model;
     this.view = view;
@@ -33,7 +32,7 @@ public class AppController2 implements IAppController {
 
 
   public void createPortfolio(String portfolioName) {
-    System.out.println(this.model);
+    //System.out.println(this.model);
     try {
       model.addPortfolio(portfolioName);
       view.display("Created a portfolio successfully.\n");
@@ -42,7 +41,7 @@ public class AppController2 implements IAppController {
     }
   }
 
-  public void buy(String stockName, int shares, String portfolio) {
+  public void buy(double commission, String stockName, int shares, String portfolio) {
     try {
       //model.addPortfolio(portfolio);
       model.buyStock(stockName, "2018-11-27", "open", shares, portfolio);
