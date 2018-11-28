@@ -52,23 +52,24 @@ public class AppController2 implements IAppController {
   }
 
   public void buyMultiple(Double commission, String amount, String portfolioName,
-                          String date, String weights) {
+                          String date, int[] weightArray) {
 
     Double investment = Double.parseDouble(amount);
 
-    int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
+    //int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
 
     try {
+      // System.out.println("HEre in the controller");
       model.buyMultipleStockInPortfolio(commission, investment, portfolioName, "2018-11-27", weightArray);
-      view.display("Bought Stock Succesfuuly\n");
+      view.display("Bought Stock Succesfully\n");
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
   }
 
   public void periodicInvestment(double commission, double investment, String portfolioName,
-                                 String sDate, String edate, int intervals, String weights) {
-    int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
+                                 String sDate, String edate, int intervals, int[] weightArray) {
+    //int[] weightArray = Arrays.stream(weights.split(",")).mapToInt(Integer::parseInt).toArray();
 
     try {
       model.periodicInvestment(commission, investment, portfolioName, sDate, edate, intervals, weightArray);
@@ -88,5 +89,9 @@ public class AppController2 implements IAppController {
     return model.checkPortfolioNames();
   }
 
+
+  public int getStockNumber(String portfolioName) {
+    return model.getStockNumberInPortfolio(portfolioName);
+  }
 
 }
